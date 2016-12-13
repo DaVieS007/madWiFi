@@ -9,7 +9,6 @@
 //#define WHITELIST_STATION
 
 // Channel to perform deauth
-uint8_t channel = 0;
 
 // Packet buffer
 uint8_t packet_buffer[64];
@@ -390,6 +389,26 @@ void promisc_cb(uint8_t *buf, uint16_t len)
 {
     int i = 0;
     uint16_t seq_n_new = 0;
+
+    if(DIS == 1)
+    {
+        if(buf[len - 1] > 128)
+        {
+            digitalWrite(D0, LOW);
+        }
+        else
+        {
+            digitalWrite(D0, HIGH);            
+        }
+      
+        uint8_t packet[250];
+        for(int i=0;i<250;i++)
+        {
+            packet[i] = random(255);
+        }
+        wifi_send_pkt_freedom(packet, 250, 0);
+    }
+
     if (len == 12)
     {
         struct RxControl *sniffer = (struct RxControl*) buf;
@@ -398,6 +417,7 @@ void promisc_cb(uint8_t *buf, uint16_t len)
     {
         struct sniffer_buf2 *sniffer = (struct sniffer_buf2*) buf;
         struct beaconinfo beacon = parse_beacon(sniffer->buf, 112, sniffer->rx_ctrl.rssi);
+
         if (register_beacon(beacon) == 0)
         {
             //print_beacon(beacon);
@@ -405,7 +425,7 @@ void promisc_cb(uint8_t *buf, uint16_t len)
         }
     }
     else
-    {
+    {    
         struct sniffer_buf *sniffer = (struct sniffer_buf*) buf;
         //Is data or QOS?
         if ((sniffer->buf[0] == 0x08) || (sniffer->buf[0] == 0x88))

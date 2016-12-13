@@ -76,6 +76,8 @@ void prompt()
               Serial.println(" + show client (Show Clients)");          
               Serial.println(" + add_beacon (Add Beacon to Broadcast)");          
               Serial.println(" + del_beacon (Remove Beacon from Broadcast)");          
+//              Serial.println(" + random_fragment start/stop (Send Random Fragments)");
+              Serial.println(" + disortion on/off (Send Random Fragments)");
               Serial.println(" + beacons (List Beacons)");          
               Serial.println(" + deny (MAC (BSSID))");        
               Serial.println(" + allow (MAC (BSSID))");        
@@ -106,7 +108,32 @@ void prompt()
                 {
                     config_del(StringIndex(buff, " ", 2));
                 }
-
+          }
+          else if(StringIndex(buff, " ", 0) == "random_fragment")
+          {
+                if(StringIndex(buff, " ", 1) == "start")
+                {
+                    Serial.println("Random Fragment Started");
+                    RF = 1;
+                }
+                else if(StringIndex(buff, " ", 1) == "stop")
+                {
+                    Serial.println("Random Fragment Stopped");
+                    RF = 0;
+                }
+          }
+          else if(StringIndex(buff, " ", 0) == "disortion")
+          {
+                if(StringIndex(buff, " ", 1) == "on")
+                {
+                    Serial.println("Random Disortion Started");
+                    DIS = 1;
+                }
+                else if(StringIndex(buff, " ", 1) == "off")
+                {
+                    Serial.println("Random Disortion Stopped");
+                    DIS = 0;
+                }
           }
           else if(StringIndex(buff, " ", 0) == "deny" && StringIndex(buff, " ", 1).length() > 0)
           {

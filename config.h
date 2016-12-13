@@ -13,6 +13,10 @@ void config_get(String name)
 
     Blacklist = f.readStringUntil('\n');
     Beacons = f.readStringUntil('\n');
+    if(f.readStringUntil('\n') == "DIS")
+    {
+        DIS = 1;
+    }
 
     if(name == "/config/autorun")
     {
@@ -39,6 +43,10 @@ void config_save(String name)
 
     f.println(Blacklist.c_str());
     f.println(Beacons.c_str());
+    if(DIS == 1)
+    {
+        f.println("DIS");
+    }
 
     f.close();
     Serial.println(" Success");

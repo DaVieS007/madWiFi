@@ -12,16 +12,21 @@ extern "C" {
 
 int madness = 0;
 byte MAD = 0;
+byte RF = 0;
+byte DIS = 0;
 int autorun = 0;
 String Blacklist;
 String Beacons;
+uint8_t channel = 0;
+
 
 #include "utils.h"
 #include "config.h"
+#include "madWifi_beacon.h"
 #include "madWifi.h"
 #include "ledBreathe.h"
 #include "madWifi_deauth.h"
-#include "madWifi_beacon.h"
+#include "madWifi_random.h"
 #include "prompt.h"
 
 void setup()
@@ -68,20 +73,43 @@ void loop()
     {
         _mad = 0;
     }
+
+    if(RF == 1)
+    {
+        _mad = 1;
+    }
+
+    if(DIS == 1)
+    {
+        _mad = 1;
+    }
+
     
     prompt();
+
+    
     if(_mad == 0)
     {
         ledBreathe(D0);  
+    }
+    else if(RF == 1)
+    {
+        digitalWrite(D0, LOW);
+        madWifi_random();
+        digitalWrite(D0,HIGH);
+    }
+    else if(DIS == 1)
+    {
+      /** DONT DO LEDS **/
     }
     else
     {
         digitalWrite(D0, LOW);
         madWifi_worker();
         madWifi_beacon();
-        delay(100);
+        delay(10);
         digitalWrite(D0,HIGH);
-        delay(100);
+        delay(10);
     }
 }
 

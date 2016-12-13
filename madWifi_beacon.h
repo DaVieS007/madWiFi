@@ -1,4 +1,4 @@
-void make_beacon(String BSSID, String SSID);
+void make_beacon(String BSSID, String SSID, int _channel);
 int advert = 0;
 int summary = 0;
 
@@ -15,7 +15,7 @@ void madWifi_beacon()
     String SSID;
     String BSSID;
 
-    if(summary + 1000*10 < millis())
+    if(summary + 1000*10 < millis() && Beacons.length() > 0)
     {
         Serial.println("Advertising Beacons: " + Beacons);  
         summary = millis();
@@ -26,7 +26,7 @@ void madWifi_beacon()
         SSID = StringIndex(Beacons, " ", i);
         if(SSID.length() > 0)
         {
-            make_beacon(BSSID,SSID);
+            make_beacon(BSSID,SSID,random(1,14));
         }
         else
         {
@@ -35,11 +35,10 @@ void madWifi_beacon()
     }
 }
 
-void make_beacon(String BSSID, String SSID)
+void make_beacon(String BSSID, String SSID, int _channel)
 {
     uint8_t packet[1024];
   
-    int _channel = random(1,14); 
     wifi_set_channel(_channel);
 
     char packet_craft[1024];
@@ -50,8 +49,6 @@ void make_beacon(String BSSID, String SSID)
     byte len = SSID.length();
 
 
-
-    // Randomize SRC MAC
     packet[index++] = 0x80;
     packet[index++] = 0x00;
     packet[index++] = 0x00;
