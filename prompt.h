@@ -163,12 +163,14 @@ void prompt()
           else if(buff == "stop")
           {
               MAD = 0;
+              autorun = 0;
           }
           else if(buff == "clear")
           {
               MAD = 0;
               Beacons = "";
               Blacklist = "";
+              Serial.println("Lists Cleared");
           }
           else if(buff == "list")
           {
