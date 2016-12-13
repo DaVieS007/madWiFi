@@ -1,0 +1,3 @@
+./astyle --style=bsd *.h
+./astyle --style=bsd *.ino
+chown -R davies .
