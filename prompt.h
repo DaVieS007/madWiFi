@@ -82,6 +82,7 @@ void prompt()
               Serial.println(" + list (Show Settings)");        
               Serial.println(" + start (Start Madness)");        
               Serial.println(" + stop (Stop Madness)");        
+              Serial.println(" + clear all List Configs");        
               Serial.println(" + config save [name/autorun] (Save Current Config)");        
               Serial.println(" + config load [name/autorun] (Load Saved Config)");        
               Serial.println(" + config del [name/autorun] (Del Saved Config)");        
@@ -162,6 +163,12 @@ void prompt()
           else if(buff == "stop")
           {
               MAD = 0;
+          }
+          else if(buff == "clear")
+          {
+              MAD = 0;
+              Beacons = "";
+              Blacklist = "";
           }
           else if(buff == "list")
           {
