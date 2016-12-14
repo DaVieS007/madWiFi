@@ -1,5 +1,5 @@
 ### This is our 'MadWifi' Project
-Based upon Esressif ESP8266 Module
+Based upon Espressif ESP8266 Module
 
 https://espressif.com/en/products/hardware/esp8266ex/overview
 
