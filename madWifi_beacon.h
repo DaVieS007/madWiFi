@@ -23,7 +23,7 @@ void madWifi_beacon()
     for(int i=0;i<24;i++)
     {
         SSID = StringIndex(Beacons, " ", i);
-        if(SSID.length() > 1)
+        if(SSID.length() > 0)
         {
             make_beacon(BSSID,SSID,random(1,14));
         }

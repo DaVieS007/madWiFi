@@ -104,13 +104,13 @@ void loop()
     {
         if(digitalRead(BTN) == 0)
         {
-            if(_mad == 1)
+            if(MAD == 1)
             {
-                _mad = 0;
+                MAD = 0;
             }
             else
             {
-                _mad = 1;
+                MAD = 1;
             }
         }
     }
