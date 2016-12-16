@@ -23,7 +23,7 @@ void madWifi_beacon()
     for(int i=0;i<24;i++)
     {
         SSID = StringIndex(Beacons, " ", i);
-        if(SSID.length() > 0)
+        if(SSID.length() > 1)
         {
             make_beacon(BSSID,SSID,random(1,14));
         }
@@ -37,12 +37,7 @@ void madWifi_beacon()
 void make_beacon(String BSSID, String SSID, int _channel)
 {
     uint8_t packet[1024];
-  
-    wifi_set_channel(_channel);
-
-    char packet_craft[1024];
     int index = 0;
-    int malindex = 0;
     byte buff;
 
     byte len = SSID.length();
@@ -111,7 +106,6 @@ void make_beacon(String BSSID, String SSID, int _channel)
     }
     
     packet[index++] = 0x01;
-    malindex = index;
     packet[index++] = 0x08; //random(0,16);
     packet[index++] = 0x82;
     packet[index++] = 0x84;
@@ -181,7 +175,10 @@ void make_beacon(String BSSID, String SSID, int _channel)
         packet[index++] = random(255);
     }
 */
-
-      wifi_send_pkt_freedom(packet, index, 0);
+       wifi_set_channel(_channel);
+      for(int i=0;i<3;i++)
+      {
+          wifi_send_pkt_freedom(packet, index, 0);
+      }
 }
 

@@ -144,9 +144,9 @@ void loop()
     }
     else
     {
+        delay(50);
         madWifi_worker();
         madWifi_beacon();
-//        led1_blink(50);
     }
 }
 
