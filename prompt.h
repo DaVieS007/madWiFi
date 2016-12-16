@@ -74,7 +74,7 @@ void prompt()
               Serial.println(" * Available Commands:");          
               Serial.println(" + show AP (Show APs)");          
               Serial.println(" + show client (Show Clients)");          
-              Serial.println(" + add_beacon (Add Beacon to Broadcast)");          
+              Serial.println(" + add_beacon (Add Beacon to Broadcast) '[RND]' = random()");          
               Serial.println(" + del_beacon (Remove Beacon from Broadcast)");          
 //              Serial.println(" + random_fragment start/stop (Send Random Fragments)");
               Serial.println(" + disortion on/off (Send Random Fragments)");

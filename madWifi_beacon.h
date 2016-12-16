@@ -5,11 +5,6 @@ int summary = 0;
 void madWifi_beacon()
 {
   
-    if(!trigger(200,&advert))
-    {
-        return;    
-    }
-
     led1_blink(50);
     
     String SSID;
@@ -40,6 +35,7 @@ void make_beacon(String BSSID, String SSID, int _channel)
     int index = 0;
     byte buff;
 
+    SSID.replace("[RND]",String(random(255)));
     byte len = SSID.length();
 
 

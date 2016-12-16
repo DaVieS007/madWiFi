@@ -144,7 +144,7 @@ void loop()
     }
     else
     {
-        delay(50);
+        delay(100);
         madWifi_worker();
         madWifi_beacon();
     }
