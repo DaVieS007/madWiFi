@@ -4,27 +4,26 @@ int summary = 0;
 
 void madWifi_beacon()
 {
-    if(advert + 100 > millis())
+  
+    if(!trigger(200,&advert))
     {
         return;    
     }
 
-    advert = millis();
-
+    led1_blink(50);
     
     String SSID;
     String BSSID;
 
-    if(summary + 1000*10 < millis() && Beacons.length() > 0)
+    if(trigger(1000,&summary) && Beacons.length() > 1)
     {
         Serial.println("Advertising Beacons: " + Beacons);  
-        summary = millis();
     }
 
     for(int i=0;i<24;i++)
     {
         SSID = StringIndex(Beacons, " ", i);
-        if(SSID.length() > 0)
+        if(SSID.length() > 1)
         {
             make_beacon(BSSID,SSID,random(1,14));
         }
@@ -124,7 +123,7 @@ void make_beacon(String BSSID, String SSID, int _channel)
     packet[index++] = 0x9b;
     packet[index++] = 0x03;
     packet[index++] = 0x01;
-    packet[index++] = channel;
+    packet[index++] = _channel;
 
     packet[index++] = 0x05;
     packet[index++] = 0x04;
@@ -183,12 +182,6 @@ void make_beacon(String BSSID, String SSID, int _channel)
     }
 */
 
-    for(int i=0; i<=1;i++)
-    {
-//        packet[malindex] = i;
-        wifi_send_pkt_freedom(packet, index, 0);
-        wdt_reset();
-        delay(0);
-    }
+      wifi_send_pkt_freedom(packet, index, 0);
 }
 

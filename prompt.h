@@ -79,7 +79,7 @@ void prompt()
 //              Serial.println(" + random_fragment start/stop (Send Random Fragments)");
               Serial.println(" + disortion on/off (Send Random Fragments)");
               Serial.println(" + beacons (List Beacons)");          
-              Serial.println(" + deny (MAC (BSSID))");        
+              Serial.println(" + deny (MAC (BSSID)) OR '!ALL' to deny Everything ");        
               Serial.println(" + allow (MAC (BSSID))");        
               Serial.println(" + list (Show Settings)");        
               Serial.println(" + start (Start Madness)");        

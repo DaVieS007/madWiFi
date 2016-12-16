@@ -11,10 +11,8 @@ byte _led_inited = 0;
 /** LED_DIM **/
 void ledBreathe(int ledPin)
 {
-
     if(_led_inited == 0)
     {
-        pinMode(ledPin, OUTPUT);
         digitalWrite(ledPin, HIGH);
     }
 

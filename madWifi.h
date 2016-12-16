@@ -1,5 +1,5 @@
 #define ETH_MAC_LEN 6
-#define MAX_APS_TRACKED 100
+#define MAX_APS_TRACKED 200
 #define MAX_CLIENTS_TRACKED 200
 
 // Put Your devices here, system will skip them on deauth
@@ -177,6 +177,7 @@ int register_beacon(beaconinfo beacon)
     {
         if (! memcmp(aps_known[u].bssid, beacon.bssid, ETH_MAC_LEN))
         {
+            memcpy(&aps_known[u], &beacon, sizeof(beacon));
             known = 1;
             break;
         }   // AP known => Set known flag
@@ -189,7 +190,7 @@ int register_beacon(beaconinfo beacon)
         if ((unsigned int) aps_known_count >=
                 sizeof (aps_known) / sizeof (aps_known[0]) )
         {
-            Serial.printf("exceeded max aps_known\n");
+            Serial.printf("exceeded max aps_known: %d/%d\n",aps_known_count,MAX_APS_TRACKED);
             aps_known_count = 0;
         }
     }
@@ -389,24 +390,16 @@ void promisc_cb(uint8_t *buf, uint16_t len)
 {
     int i = 0;
     uint16_t seq_n_new = 0;
+    uint8_t orig = 0;
+    led2_blink(20);
 
-    if(DIS == 1)
+    if(DIS == 1 && len > 12)
     {
-        if(buf[len - 1] > 128)
+        for(int i=0;i<64;i++)
         {
-            digitalWrite(D0, LOW);
+            wifi_send_pkt_freedom(buf, len, 0);      
         }
-        else
-        {
-            digitalWrite(D0, HIGH);            
-        }
-      
-        uint8_t packet[250];
-        for(int i=0;i<250;i++)
-        {
-            packet[i] = random(255);
-        }
-        wifi_send_pkt_freedom(packet, 250, 0);
+        led1_blink(20); 
     }
 
     if (len == 12)

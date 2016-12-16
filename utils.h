@@ -1,3 +1,16 @@
+/** TRIGGER **/
+byte trigger(int intval, int *lval)
+{
+    if(*lval + intval < millis() || *lval > millis())
+    {
+        *lval = millis();
+        return 1;
+    }
+
+    return 0;
+}
+/** TRIGGER **/
+
 /** StringIndex **/
 String StringIndex(String data, String delim, int pos)
 {
