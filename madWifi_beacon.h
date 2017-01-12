@@ -4,6 +4,11 @@ int summary = 0;
 
 void madWifi_beacon()
 {
+
+    if(!trigger(50,&advert))
+    {
+        return;
+    }
   
     led1_blink(50);
     

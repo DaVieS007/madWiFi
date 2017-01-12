@@ -186,10 +186,12 @@ void prompt()
           else if(buff == "start")
           {
               MAD = 1;
+              //wifi_promiscuous_enable(0);
           }
           else if(buff == "stop")
           {
               MAD = 0;
+              //wifi_promiscuous_enable(1);
               autorun = 0;
           }
           else if(buff == "clear")
